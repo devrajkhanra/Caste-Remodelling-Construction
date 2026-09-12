@@ -17,3 +17,5 @@ Single-page marketing site for Caste Remodeling Construction (Houston, TX).
 This is a static site — any static host works (GitHub Pages, Netlify,
 Vercel, Cloudflare Pages, or your own web server). No build step required;
 just upload `index.html` and the `assets/` folder together.
+
+<!-- trigger pages build -->
