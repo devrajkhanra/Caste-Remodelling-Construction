@@ -831,16 +831,26 @@
   track.innerHTML += track.innerHTML;
 
   // Scroll progress bar + header shrink
+  // Batched via requestAnimationFrame so scroll handling stays passive/async
+  // (avoids the "scroll-linked positioning effect" perf warning in Firefox)
   const progress = document.getElementById('scrollProgress');
   const header = document.getElementById('siteHeader');
-  function onScroll(){
+  let scrollTicking = false;
+  function applyScrollEffects(){
     const h = document.documentElement;
     const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
     progress.style.width = scrolled + '%';
     header.classList.toggle('scrolled', h.scrollTop > 10);
+    scrollTicking = false;
+  }
+  function onScroll(){
+    if (!scrollTicking){
+      requestAnimationFrame(applyScrollEffects);
+      scrollTicking = true;
+    }
   }
   document.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+  applyScrollEffects();
 
   // Mobile menu toggle
   const menuToggle = document.getElementById('menuToggle');
