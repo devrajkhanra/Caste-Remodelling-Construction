@@ -111,6 +111,17 @@
     font-size:0.8rem; font-weight:600; color:var(--rust); margin-bottom:14px;
   }
   .eyebrow-tag::before{content:""; width:22px; height:2px; background:var(--rust); display:inline-block;}
+
+  /* ---------- Icon chip system (consistent, solid, full-opacity icon treatment) ---------- */
+  .icon-chip{
+    display:flex; align-items:center; justify-content:center; flex:none;
+    background:rgba(166,61,47,0.1); color:var(--rust); border-radius:10px;
+  }
+  .icon-chip svg{stroke:currentColor;}
+  .icon-chip.navy{background:rgba(18,35,61,0.07); color:var(--navy);}
+  .icon-chip.on-dark{background:rgba(255,255,255,0.1); color:#fff;}
+  .icon-chip.solid{background:var(--rust); color:#fff;}
+
   section{padding:88px 0;}
   .section-alt{background:var(--concrete-dark);}
   .section-dark{background:var(--navy); color:#DCE3EA;}
@@ -187,22 +198,23 @@
     background:linear-gradient(180deg, rgba(18,35,61,0.03), rgba(18,35,61,0) 40%), var(--concrete);
     position:relative; overflow:hidden; border-bottom:1px solid var(--line);
   }
-  .hero-float-icons{position:absolute; inset:0; pointer-events:none; z-index:0;}
-  .hero-float-icons svg{position:absolute; opacity:0.1; color:var(--navy); animation:floatIcon 9s ease-in-out infinite;}
-  .fi-1{top:12%; left:4%; width:52px; height:52px; animation-delay:0s;}
-  .fi-2{top:66%; left:9%; width:34px; height:34px; animation-delay:1.4s;}
-  .fi-3{top:20%; left:47%; width:30px; height:30px; animation-delay:2.6s; opacity:0.08;}
-  .fi-4{top:78%; left:44%; width:44px; height:44px; animation-delay:.7s;}
-  @keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-18px) rotate(8deg);}}
   .hero .wrap{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
   .hero h1{font-size:clamp(2.6rem, 5.4vw, 4.1rem); color:var(--navy); opacity:0; animation:heroUp .8s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:.05s;}
   .hero h1 span{color:var(--rust);}
   .hero .sub{font-size:1.12rem; color:var(--steel); max-width:46ch; margin-bottom:30px; opacity:0; animation:heroUp .8s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:.2s;}
   .hero-ctas{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:34px; opacity:0; animation:heroUp .8s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:.35s;}
-  .hero-badges{display:flex; flex-wrap:wrap; gap:22px 30px; padding-top:26px; border-top:1px solid var(--line); opacity:0; animation:heroUp .8s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:.5s;}
+  .hero-badges{display:flex; flex-wrap:wrap; gap:10px; padding-top:26px; border-top:1px solid var(--line); opacity:0; animation:heroUp .8s cubic-bezier(.2,.7,.3,1) forwards; animation-delay:.5s;}
+  .hero-badge{
+    display:flex; align-items:center; gap:9px;
+    font-size:0.84rem; font-weight:700; color:var(--navy);
+    background:var(--white); border:1px solid var(--line);
+    padding:9px 16px 9px 9px; border-radius:30px;
+    transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .hero-badge:hover{border-color:var(--rust); box-shadow:0 6px 16px rgba(18,35,61,0.08); transform:translateY(-2px);}
+  .hero-badge .icon-chip{width:26px; height:26px; border-radius:50%;}
+  .hero-badge .icon-chip svg{width:14px; height:14px;}
   @keyframes heroUp{from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:none;}}
-  .hero-badge{display:flex; align-items:center; gap:10px; font-size:0.88rem; font-weight:600; color:var(--navy);}
-  .hero-badge svg{width:20px; height:20px; flex:none; color:var(--rust);}
   .eyebrow-tag.hero-eyebrow{opacity:0; animation:heroUp .7s cubic-bezier(.2,.7,.3,1) forwards;}
 
   .hero-photo-panel{
@@ -241,21 +253,24 @@
   @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);}}
 
   /* ---------- Trust bar ---------- */
-  .trust-bar{background:var(--navy-deep); color:#fff; padding:28px 0;}
-  .trust-bar .wrap{display:flex; flex-wrap:wrap; gap:22px 40px; justify-content:space-between; align-items:center;}
-  .trust-item{display:flex; align-items:center; gap:12px; font-size:0.92rem; font-weight:600;}
-  .trust-item svg{width:24px; height:24px; color:var(--rust); flex:none; transition:transform .3s ease;}
-  .trust-item:hover svg{transform:scale(1.2) rotate(-6deg);}
+  .trust-bar{background:var(--navy-deep); color:#fff; padding:26px 0;}
+  .trust-bar .wrap{display:flex; flex-wrap:wrap; align-items:center;}
+  .trust-item{display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600; flex:1 1 0; min-width:220px; padding:6px 24px; border-left:1px solid rgba(255,255,255,0.14);}
+  .trust-item:first-child{border-left:none; padding-left:0;}
+  .trust-item .icon-chip{width:38px; height:38px; border-radius:10px; transition:transform .3s ease, background .3s ease;}
+  .trust-item .icon-chip svg{width:19px; height:19px;}
+  .trust-item:hover .icon-chip{transform:scale(1.08); background:var(--rust); color:#fff;}
 
   /* ---------- Services ---------- */
   .services-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px;}
-  .service-cell{background:var(--concrete); padding:32px 26px; position:relative; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;}
+  .service-cell{background:var(--concrete); padding:30px 26px; position:relative; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;}
   .service-cell::before{content:""; position:absolute; top:0; left:0; right:0; height:3px; background:var(--rust); transform:scaleX(0); transform-origin:left; transition:transform .35s ease;}
   .service-cell:hover{transform:translateY(-6px); box-shadow:0 16px 30px rgba(18,35,61,0.14); z-index:2;}
   .service-cell:hover::before{transform:scaleX(1);}
-  .service-cell .num{position:absolute; top:14px; right:18px; font-family:'Big Shoulders Display', sans-serif; font-size:0.78rem; font-weight:700; color:var(--line);}
-  .service-cell svg{width:34px; height:34px; color:var(--rust); margin-bottom:16px; transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
-  .service-cell:hover svg{transform:scale(1.15) rotate(-6deg);}
+  .service-cell .num{position:absolute; top:16px; right:18px; font-family:'Big Shoulders Display', sans-serif; font-size:0.82rem; font-weight:700; color:var(--steel); opacity:0.55; letter-spacing:0.04em;}
+  .service-cell .icon-chip{width:52px; height:52px; border-radius:12px; margin-bottom:18px; transition:transform .35s cubic-bezier(.34,1.56,.64,1), background .35s ease, color .35s ease;}
+  .service-cell .icon-chip svg{width:26px; height:26px;}
+  .service-cell:hover .icon-chip{transform:scale(1.08) rotate(-4deg); background:var(--rust); color:#fff;}
   .service-cell h3{font-size:1.18rem; margin-bottom:8px;}
   .service-cell p{font-size:0.92rem; color:var(--steel); margin:0;}
 
@@ -265,9 +280,9 @@
   .why-list li{display:flex; gap:16px; padding:20px 0; border-top:1px solid var(--line); transition:padding-left .3s ease;}
   .why-list li:hover{padding-left:8px;}
   .why-list li:last-child{border-bottom:1px solid var(--line);}
-  .why-list .icon{width:34px; height:34px; flex:none; border:2px solid var(--navy); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--navy); transition:background .3s ease, color .3s ease, transform .3s ease;}
-  .why-list li:hover .icon{background:var(--rust); border-color:var(--rust); color:#fff; transform:rotate(8deg);}
-  .why-list .icon svg{width:17px; height:17px;}
+  .why-list .icon{width:38px; height:38px; flex:none; background:rgba(18,35,61,0.06); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--navy); transition:background .3s ease, color .3s ease, transform .3s ease;}
+  .why-list li:hover .icon{background:var(--rust); color:#fff; transform:rotate(8deg);}
+  .why-list .icon svg{width:18px; height:18px;}
   .why-list h4{font-family:'Inter', sans-serif; font-weight:700; font-size:1.02rem; margin:0 0 4px 0; color:var(--navy);}
   .why-list p{margin:0; color:var(--steel); font-size:0.92rem;}
 
@@ -315,7 +330,8 @@
   .contact-line{display:flex; gap:14px; align-items:flex-start; padding:16px 0; border-top:1px solid rgba(255,255,255,0.15); text-decoration:none; color:#fff; transition:padding-left .25s ease;}
   .contact-line:hover{padding-left:6px;}
   .contact-line:first-of-type{border-top:none;}
-  .contact-line svg{width:20px; height:20px; color:var(--rust); flex:none; margin-top:2px;}
+  .contact-line .icon-chip{width:34px; height:34px; border-radius:9px; margin-top:1px;}
+  .contact-line .icon-chip svg{width:17px; height:17px;}
   .contact-line b{display:block; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.55); font-weight:600; margin-bottom:2px;}
   .contact-line span{font-weight:600; font-size:0.98rem;}
   .map-frame{margin-top:22px; border-radius:3px; overflow:hidden; border:1px solid rgba(255,255,255,0.2);}
@@ -388,7 +404,6 @@
     .footer-grid{grid-template-columns:1fr;}
     section{padding:60px 0;}
     .gallery-grid{grid-template-columns:repeat(2, 1fr);}
-    .hero-float-icons{display:none;}
   }
   @media (max-width: 520px){
     .services-grid{grid-template-columns:1fr;}
@@ -440,12 +455,6 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <div class="hero-float-icons" aria-hidden="true">
-    <svg class="fi-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l9-13 9 13"/><path d="M9 21v-6h6v6"/></svg>
-    <svg class="fi-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
-    <svg class="fi-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-    <svg class="fi-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-  </div>
   <div class="wrap">
     <div>
       <span class="eyebrow-tag hero-eyebrow" style="animation-delay:0s;">Licensed General Contractor &mdash; Houston, TX</span>
@@ -459,11 +468,11 @@
         <a href="#contact" class="btn btn-outline">Request Free Estimate</a>
       </div>
       <div class="hero-badges">
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg>Licensed &amp; Insured</div>
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Free On-Site Estimates</div>
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Locally Owned, Houston TX</div>
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Bilingual Service — English &amp; Espa&ntilde;ol</div>
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>Also on WhatsApp — (346) 493-0488</div>
+        <div class="hero-badge"><span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg></span>Licensed &amp; Insured</div>
+        <div class="hero-badge"><span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>Free On-Site Estimates</div>
+        <div class="hero-badge"><span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Locally Owned, Houston TX</div>
+        <div class="hero-badge"><span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Bilingual — English &amp; Espa&ntilde;ol</div>
+        <div class="hero-badge"><span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></span>WhatsApp — (346) 493-0488</div>
       </div>
     </div>
 
@@ -485,10 +494,10 @@
 <!-- ============ TRUST BAR ============ -->
 <div class="trust-bar">
   <div class="wrap">
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>Free, no-obligation estimates</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>Residential &amp; commercial projects</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>One point of contact, start to finish</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Serving Houston &amp; surrounding areas</div>
+    <div class="trust-item"><span class="icon-chip on-dark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>Free, no-obligation estimates</div>
+    <div class="trust-item"><span class="icon-chip on-dark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg></span>Residential &amp; commercial projects</div>
+    <div class="trust-item"><span class="icon-chip on-dark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>One point of contact, start to finish</div>
+    <div class="trust-item"><span class="icon-chip on-dark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></span>Serving Houston &amp; surrounding areas</div>
   </div>
 </div>
 
@@ -502,55 +511,55 @@
     <div class="services-grid">
       <div class="service-cell">
         <span class="num">01</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v20"/><path d="M21 15V2"/><path d="M3 15h18v0a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M12 2v10"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v20"/><path d="M21 15V2"/><path d="M3 15h18v0a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M12 2v10"/></svg></span>
         <h3>Kitchen &amp; Bathroom Remodeling</h3>
         <p>Cabinets, backsplash, vanities, and finishes — planned and installed by our own crews, not subcontractors.</p>
       </div>
       <div class="service-cell">
         <span class="num">02</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M12 3v6"/><path d="M3 12h18"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M12 3v6"/><path d="M3 12h18"/></svg></span>
         <h3>Flooring</h3>
         <p>Tile, hardwood, laminate, and vinyl plank installed level, sealed, and ready for daily life.</p>
       </div>
       <div class="service-cell">
         <span class="num">03</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
         <h3>Electrical</h3>
         <p>Outlets, fixtures, and wiring updates completed safely as part of your remodel.</p>
       </div>
       <div class="service-cell">
         <span class="num">04</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span>
         <h3>Interior &amp; Exterior Painting</h3>
         <p>Prep, priming, and finish coats that hold their color and hide the seams.</p>
       </div>
       <div class="service-cell">
         <span class="num">05</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M4 9h16"/><path d="M4 15h16"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M4 9h16"/><path d="M4 15h16"/></svg></span>
         <h3>Trim &amp; Finish Carpentry</h3>
         <p>Baseboards, casing, and custom trim work that gives a room its finished look.</p>
       </div>
       <div class="service-cell">
         <span class="num">06</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-8h14l2 8"/><path d="M5 12v8h14v-8"/><path d="M9 20v-6h6v6"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-8h14l2 8"/><path d="M5 12v8h14v-8"/><path d="M9 20v-6h6v6"/></svg></span>
         <h3>Roofing &amp; Patio Covers</h3>
         <p>Roof repairs and patio cover builds that stand up to Houston heat, storms, and rain.</p>
       </div>
       <div class="service-cell">
         <span class="num">07</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span>
         <h3>Drywall &amp; Sheetrock</h3>
         <p>Hanging, taping, and finishing for repairs, remodels, or full room build-outs.</p>
       </div>
       <div class="service-cell">
         <span class="num">08</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6L6.5 3.5a1.5 1.5 0 0 0-2.44 1.72L5 8"/><path d="M4 12h17a1 1 0 0 1 1 1 5 5 0 0 1-5 5H8"/><path d="M9 12v9"/><path d="M17 12v9"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6L6.5 3.5a1.5 1.5 0 0 0-2.44 1.72L5 8"/><path d="M4 12h17a1 1 0 0 1 1 1 5 5 0 0 1-5 5H8"/><path d="M9 12v9"/><path d="M17 12v9"/></svg></span>
         <h3>Plumbing</h3>
         <p>Fixture installs and repairs handled as part of your kitchen or bathroom project.</p>
       </div>
       <div class="service-cell">
         <span class="num">09</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
         <h3>Fencing &amp; Custom Metalwork</h3>
         <p>Fence installs, gates, and welded metalwork built for Houston's outdoor conditions.</p>
       </div>
@@ -696,23 +705,23 @@
         <div class="contact-card">
           <h3>Contact Details</h3>
           <a class="contact-line" href="tel:+13464930488">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="icon-chip on-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <span><b>Call or Text &mdash; Espa&ntilde;ol</b><span>(346) 493-0488</span></span>
           </a>
           <a class="contact-line" href="tel:+17134698704">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="icon-chip on-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <span><b>Call or Text &mdash; English</b><span>(713) 469-8704</span></span>
           </a>
           <div class="contact-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="icon-chip on-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
             <span><b>Also on WhatsApp</b><span>(346) 493-0488 — dedicated WhatsApp number</span></span>
           </div>
           <div class="contact-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="icon-chip on-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <span><b>Address</b><span>9030 Tavenor Ln, Houston, TX 77075</span></span>
           </div>
           <div class="contact-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="icon-chip on-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
             <span><b>Hours</b><span>Call anytime — we'll confirm a visit time that works for you</span></span>
           </div>
           <div class="map-frame">
